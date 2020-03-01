@@ -28,24 +28,31 @@ wire [5:0] instruction_r_funct;
 assign instruction_r_rs = com[25:21];
 assign instruction_r_rt = com[20:16];
 assign instruction_r_rd = com[15:11];
-//assign instruction_r_shamt = com[10:6];
 assign instruction_r_funct = com[5:0];
 assign funct_control = instruction_r_funct;
 
 wire [4:0] instruction_i_rs, instruction_i_rt;
 wire [15:0] instruction_i_imm;
+wire [31:0] extend_instruction_i_imm;
+assign extend_instruction_i_imm = {{16{instruction_i_imm[15]}}, instruction_i_imm};
 assign instruction_i_rs = com[25:21];
 assign instruction_i_rt = com[20:16];
 assign instruction_i_imm = com[15:0];
 
 wire [25:0] instruction_j_addr;
+wire [31:0] extend_instruction_j_addr;
 assign instruction_j_addr = com[25:0];
+assign extend_instruction_j_addr = {{6{1'b0}}, instruction_j_addr};
 
 wire [31:0] alu_out;
 assign dm_addr = alu_out;
 assign wd = (instruction_op == OP_LW) ? dm_od : alu_out;
 
-alu alu(.in1(rd1), .in2(rd2), .opcode(op_alu), .zero(zero), .out(alu_out), .imm(instruction_i_imm));
+wire [31:0] alu_in1, alu_in2;
+assign alu_in1 = rd1;
+assign alu_in2 = (instruction_op == OP_R) || (instruction_op == OP_BEQ) ? rd2 : extend_instruction_i_imm;
+
+alu alu(.in1(alu_in1), .in2(alu_in2), .opcode(op_alu), .zero(zero), .out(alu_out));
 
 localparam  FUNCT_ADD = 6'b100000,
 			OP_R = 6'b000000,
@@ -87,11 +94,10 @@ always @*
 				begin 
 					rn1 = instruction_i_rs;
 					rn2 = instruction_i_rt;
-					if(zero) pc_next = instruction_i_imm; //?
-				end
+					if(zero) pc_next = pc_next + instruction_i_imm;				end
 			OP_J: 
 				begin
-					pc_next = instruction_j_addr;
+					pc_next = extend_instruction_j_addr;
 				end
 		endcase 
 	end

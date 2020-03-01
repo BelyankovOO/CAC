@@ -48,6 +48,10 @@ always @(funct, op)
 					store = 1;
 					op_alu = 6'b000100;
 				end	
+			OP_J: 
+				begin
+					store = 1;
+				end		
 		endcase
 	end
 
