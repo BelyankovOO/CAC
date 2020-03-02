@@ -94,7 +94,8 @@ always @*
 				begin 
 					rn1 = instruction_i_rs;
 					rn2 = instruction_i_rt;
-					if(zero) pc_next = pc_next + instruction_i_imm;				end
+					if(zero) pc_next = pc_next + extend_instruction_i_imm;				
+				end
 			OP_J: 
 				begin
 					pc_next = extend_instruction_j_addr;

@@ -12,7 +12,7 @@ initial begin
 
 	#15 rst=1; #2 rst = 0;
 
-	#30 $finish;
+	#40 $finish;
 end	
 
 always #1 clk = !clk;	
