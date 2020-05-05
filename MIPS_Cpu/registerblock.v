@@ -7,7 +7,7 @@ integer i;
 assign rd1 = rn1 ? rf[rn1] : 0;
 assign rd2 = rn2 ? rf[rn2] : 0;
 
-always @(posedge clk or negedge rst)
+always @(posedge clk or posedge rst)
 	if(rst) 
 		begin
 			for(i=0; i<32; i=i+1) rf[i] <= 0;
