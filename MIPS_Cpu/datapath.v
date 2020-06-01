@@ -165,6 +165,9 @@ always @*
 			OP_J: 
 				begin
 				end
+			default: 
+				begin
+				end	
 		endcase 
 	end
 

@@ -4,7 +4,7 @@ always @(in1,in2,opcode) begin
 	case(opcode)
 		6'b000000, 6'b000001, 6'b000010, 6'b000011 : out = in1 + in2; //sum, addi, lw, sw
 		6'b000100: out = in1 - in2; //beq
-		//6'b000101: 
+		default: out = in1 + in2; 
 	endcase
 end	 
 	
