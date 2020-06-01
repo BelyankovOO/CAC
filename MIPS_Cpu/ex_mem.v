@@ -1,4 +1,4 @@
-module ex_mem(input [4:0] i_rd, input [2:0] i_m, input [1:0] i_wb, input clk, input rst, input [31:0] i_target, input i_eq, input [31:0] i_alu_result, input [31:0] i_valB, input [4:0] i_res, input [5:0] i_operation, output [4:0] o_rd, output [2:0] o_m, output [1:0] o_wb, output [31:0] o_target, output o_eq, output [31:0] o_alu_result, output [31:0] o_valB, output [4:0] o_res, output [5:0] o_operation);
+module ex_mem(input write, input [4:0] i_rd, input [2:0] i_m, input [1:0] i_wb, input clk, input rst, input [31:0] i_target, input i_eq, input [31:0] i_alu_result, input [31:0] i_valB, input [4:0] i_res, input [5:0] i_operation, output [4:0] o_rd, output [2:0] o_m, output [1:0] o_wb, output [31:0] o_target, output o_eq, output [31:0] o_alu_result, output [31:0] o_valB, output [4:0] o_res, output [5:0] o_operation);
 
 reg [31:0] o_target, o_valB, o_alu_result;
 reg [5:0] o_operation;
@@ -21,6 +21,7 @@ begin
 	o_operation <= 6'b111111; //change noop
 end	
 else
+if(write)
 begin
 	o_rd <= i_rd;
 	o_m <= i_m;

@@ -1,4 +1,4 @@
-module id_ex(input [4:0] i_rs, input [4:0] i_rt, input [4:0] i_rd, input [1:0] i_ex, input [2:0] i_m, input [1:0] i_wb, input clk, input rst, input [31:0] i_valA, input [31:0] i_valB, input [31:0] i_imm, input [31:0] i_pc_plus4,  input [4:0] i_res, input [5:0] i_operation, output [4:0] o_rs, output [4:0] o_rt, output [4:0] o_rd, output [1:0] o_ex, output [2:0] o_m, output [1:0] o_wb, output [31:0] o_valA, output [31:0] o_valB, output [31:0] o_imm, output [31:0] o_pc_plus4, output [4:0] o_res, output [5:0] o_operation);
+module id_ex(input write, input [4:0] i_rs, input [4:0] i_rt, input [4:0] i_rd, input [1:0] i_ex, input [2:0] i_m, input [1:0] i_wb, input clk, input rst, input [31:0] i_valA, input [31:0] i_valB, input [31:0] i_imm, input [31:0] i_pc_plus4,  input [4:0] i_res, input [5:0] i_operation, output [4:0] o_rs, output [4:0] o_rt, output [4:0] o_rd, output [1:0] o_ex, output [2:0] o_m, output [1:0] o_wb, output [31:0] o_valA, output [31:0] o_valB, output [31:0] o_imm, output [31:0] o_pc_plus4, output [4:0] o_res, output [5:0] o_operation);
 
 reg [1:0] o_ex, o_wb;
 reg [2:0] o_m;
@@ -22,7 +22,8 @@ begin
 	o_res <= 0;
 	o_operation <= 6'b111111; //change noop
 end
-else	
+else
+if(write)	
 begin 
 	o_rs <= i_rs;
 	o_rt <= i_rt;

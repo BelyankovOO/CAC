@@ -1,6 +1,6 @@
 module mips(input clk, input rst);
 
-wire w_reg, w_data, zero;
+wire w_reg, w_data, r_data, zero;
 wire [5:0] op_alu, funct_control, op_control, op_control_mem, op_control_wb;
 
 datapath datapath(
@@ -8,6 +8,7 @@ datapath datapath(
 	.rst(rst),
 	.w_reg(w_reg),
 	.w_data(w_data),
+	.r_data(r_data),
 	.op_alu(op_alu),
 	.zero(zero),
 	.funct_control(funct_control),
@@ -25,6 +26,7 @@ controlpath controlpath(
 	.op_mem(op_control_mem),
 	.op_wb(op_control_wb),
 	.w_data(w_data),
+	.r_data(r_data),
 	.w_reg(w_reg),
 	.op_alu(op_alu)
 	);
