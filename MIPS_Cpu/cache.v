@@ -46,19 +46,19 @@ assign hit = current_verific_bit & (current_tag == tag);
 
 integer i;
 
-wire v0, v1, v2, v3, v4, v5, v6 , v7;
-assign v0 = valid_bank[0];
-assign v1 = valid_bank[1];
-assign v2 = valid_bank[2];
-assign v3 = valid_bank[3];
-assign v4 = valid_bank[4];
-assign v5 = valid_bank[5];
-assign v6 = valid_bank[6];
-assign v7 = valid_bank[7];
+//wire v0, v1, v2, v3, v4, v5, v6 , v7;
+//assign v0 = valid_bank[0];
+//assign v1 = valid_bank[1];
+//assign v2 = valid_bank[2];
+//assign v3 = valid_bank[3];
+//assign v4 = valid_bank[4];
+//assign v5 = valid_bank[5];
+//assign v6 = valid_bank[6];
+//assign v7 = valid_bank[7];
 
-reg [1:0] check;
-wire check1;
-assign check1 = read_index & !hit;
+//reg [1:0] check;
+//wire check1;
+//assign check1 = read_index & !hit;
 
 always @* begin
 case(offset)
@@ -124,13 +124,13 @@ always @*
 if(read_index & !hit) 
 	if(stall_level_2)
 	begin
-		valid_bank[index] <= 1;
-		check <= 1;
+		valid_bank[index] <= 0;
+		//check <= 1;
 	end
 	else 
 	begin
-		check <= 2;
-		valid_bank[index] <= 0;
+		//check <= 2;
+		valid_bank[index] <= 1;
 		data_cache_bank[index] <= block_of_data_from_cache_level_2;
 		cache_bank[index] <= current_tag;
 	end	

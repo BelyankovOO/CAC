@@ -54,6 +54,9 @@ reg [4:0] counter;
 wire [31:0] addr_to_read;
 assign addr_to_read = {addr[31:3], 3'b000};
 
+wire [24:0] check1;
+assign check1 = cache_bank[0];
+
 always @(posedge clk or posedge rst) begin
 	if(rst)
 	begin
@@ -116,7 +119,7 @@ always @(posedge clk or posedge rst) begin
 					valid_bank[index] <= 1;
 					data_cache_bank[index][255:224] <= data_from_mem;
 					counter <= 8;
-					cache_bank[index] <= current_tag;
+					cache_bank[index] <= tag;
 				end
 		endcase		
 	end
